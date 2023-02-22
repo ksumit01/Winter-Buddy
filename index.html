@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <h1>Winter Buddy</h1> -->
+    <nav class="navbar">
+      <div class="navbar-logo">
+        <img
+          src="./images/onlinelogomaker-022123-1530-6453-2000-transparent.png"
+          alt=""
+        />
+      </div>
+
+      <div class="navbar-content">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-twitter"></i>
+        <a href="./Log-in Page/as1.html"><i class="fa-regular fa-user"></i></a>
+        <i class="fa-solid fa-bag-shopping"></i>
+      </div>
+    </nav>
+
+    <div class="window-image">
+      <img
+        src="https://woollen-wear.in/cdn-cgi/imagedelivery/ZMUrshz-omHo_iJ4haWPew/Banners/Website/woollen-wear-collection-mens-1900x350.jpg/public"
+        alt=""
+      />
+    </div>
+
+    <div class="main container">
+      <div class="filter">
+        <input type="checkbox" id="nofilter" value="Clear Filter" /> Clear
+        Filter <input type="checkbox" value="bottles" id="bottles" /> Bottle
+        <input type="checkbox" name="" id="jackets" />jackets
+        <input type="checkbox" id="cap" value="cap" /> Cap
+        <input type="checkbox" name="" id="heater" value="Heater" />Heater
+        <input type="checkbox" id="blankets" />
+      </div>
+    </div>
+    <div id="container">
+      <!-- Append the code here -->
+    </div>
+  </body>
+</html>
+<script>
+  async function fetchedData() {
+    try {
+      let res = await fetch(
+        `https://63f4a21e55677ef68bc03f97.mockapi.io/products`
+      );
+      let data = await res.json();
+      console.log(data);
+      display(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  fetchedData();
+
+  let divContainer = document.getElementById("container");
+  function display(data) {
+    divContainer.innerHTML = null;
+    data.forEach((ele) => {
+      let card = document.createElement("div");
+
+      let image = document.createElement("img");
+      image.setAttribute("src", ele.image);
+
+      let title = document.createElement("h2");
+      title.innerText = ele.title;
+
+      let category = document.createElement("h2");
+      category.innerText = ele.category;
+
+      let description = document.createElement("p");
+      description.innerText = ele.description;
+
+      let type = document.createElement("h3");
+      type.innerText = ele.type;
+
+      let price = document.createElement("h4");
+      price.innerText = ele.price;
+      card.append(image, category, description, title, type, price);
+
+      divContainer.append(card);
+    });
+  }
+
+  let userButton = document.querySelector(".fa-regular");
+  userButton.addEventListener("click", function () {});
+</script>
