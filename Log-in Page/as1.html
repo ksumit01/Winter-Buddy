@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .main {
+        width: 90%;
+        margin: auto;
+        /* border: 3px solid red; */
+        display: flex;
+      }
+
+      #firstPart {
+        width: 50%;
+        /* border: 2px darkolivegreen solid; */
+        text-align: center;
+        padding: 120px 0px;
+        background-color: #ecbc76;
+      }
+      #firstPart img {
+        height: 358px;
+        width: 392px;
+        left: 392px;
+        top: 0px;
+        border-radius: 0px;
+
+        /* background: rebeccapurple !important; */
+      }
+
+      #secondPart {
+        width: 50%;
+        /* flex-basis: 100%; */
+        /* text-align: center; */
+      }
+      #secondPart > div {
+        box-sizing: border-box;
+        width: 80%;
+        margin: auto;
+        /* border: 2px solid black; */
+        padding: 50px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        background: #ffffff;
+        box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);
+        border-radius: 40px;
+      }
+      #secondPart p:nth-child(1) {
+        /* background: red !important; */
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 30px;
+        /* identical to box height */
+
+        color: #000000;
+      }
+
+      #secondPart h1 {
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 55px;
+        /* line-height: 82px; */
+      }
+
+      #secondPart p:nth-child(3) {
+        /* background: red !important; */
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        /* line-height: 24px; */
+      }
+
+      #secondPart p:nth-child(7) {
+        text-align: right;
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        /* line-height: 20px; */
+
+        color: #ad3113;
+      }
+
+      #secondPart button {
+        width: 250px;
+        height: 54.22px;
+        left: 861.39px;
+        top: 571.99px;
+
+        background: #e48700;
+        box-shadow: 0px 4px 19px rgba(119, 147, 65, 0.3);
+        border-radius: 10px;
+      }
+
+      #secondPart p:nth-child(9) {
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+
+        color: #8d8d8d;
+        text-align: right;
+      }
+
+      #secondPart p:nth-child(10) {
+        text-align: center;
+      }
+      #img1 {
+        text-align: center;
+      }
+      #secondPart input {
+        /* background: red !important; */
+        height: 57.23077392578125px;
+        width: 250px;
+        left: 0px;
+        /* top: 35.1416015625px; */
+        border-radius: 9px;
+      }
+
+      #input {
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div id="firstPart">
+        <img src="./Saly-3.svg" alt="" />
+      </div>
+
+      <div id="secondPart">
+        <div>
+          <p>Welcome to Winter Buddy</p>
+          <h1>Sign up</h1>
+          <p>Enter your username or email address</p>
+          <input type="text" id="input1" />
+          <p>Enter Your Password</p>
+          <input type="text" id="input2" />
+
+          <p>Forgot Password</p>
+          <button id="btn">Sign In</button>
+          <p>No account? Sign up</p>
+          <p>or continue with</p>
+          <div id="img1"><img src="./Group 12.png" alt="" /></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
