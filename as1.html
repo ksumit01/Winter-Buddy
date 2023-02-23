@@ -123,9 +123,6 @@
         /* top: 35.1416015625px; */
         border-radius: 9px;
       }
-
-      #input {
-      }
     </style>
   </head>
   <body>
@@ -139,17 +136,33 @@
           <p>Welcome to Winter Buddy</p>
           <h1>Sign up</h1>
           <p>Enter your username or email address</p>
-          <input type="text" id="input1" />
+          <input type="email" id="input1" />
           <p>Enter Your Password</p>
-          <input type="text" id="input2" />
+          <input type="password" id="input2" />
 
           <p>Forgot Password</p>
-          <button id="btn">Sign In</button>
+          <a href="./sign-in.html"><button id="btn">Sign In</button></a>
           <p>No account? Sign up</p>
           <p>or continue with</p>
-          <div id="img1"><img src="./Group 12.png" alt="" /></div>
         </div>
       </div>
     </div>
   </body>
 </html>
+
+<script>
+  let signup_data = JSON.parse(localStorage.getItem("sign-up")) || [];
+
+  let submitButton = document.getElementById("btn");
+  let emailEl = document.getElementById("input1");
+  let password = document.getElementById("input2");
+
+  submitButton.addEventListener("click", function () {
+    let obj = {
+      username: emailEl.value,
+      password: password.value,
+    };
+    signup_data.push(obj);
+    localStorage.setItem("sign-up", JSON.stringify(signup_data));
+  });
+</script>

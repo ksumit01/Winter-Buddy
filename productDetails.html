@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <!-- <h1>Winter Buddy</h1> -->
+    <nav class="navbar">
+      <div class="navbar-logo">
+        <img
+          src="./images/onlinelogomaker-022123-1530-6453-2000-transparent.png"
+          alt=""
+        />
+      </div>
+
+      <div class="navbar-content">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-twitter"></i>
+        <a href="./Log-in Page/as1.html"><i class="fa-regular fa-user"></i></a>
+        <i class="fa-solid fa-bag-shopping"></i>
+      </div>
+    </nav>
+
+    <div class="window-image">
+      <img
+        src="https://woollen-wear.in/cdn-cgi/imagedelivery/ZMUrshz-omHo_iJ4haWPew/Banners/Website/woollen-wear-collection-mens-1900x350.jpg/public"
+        alt=""
+      />
+    </div>
+    <div id="container">
+      <!-- Append the code here -->
+    </div>
+  <body>
+</html>
+<script>
+  // Get the product details from the query parameter in the URL
+const urlParams = new URLSearchParams(window.location.search);
+const product = JSON.parse(urlParams.get('product'));
+
+// Display the product details on the page
+
+let card = document.createElement("div")
+  
+let image = document.createElement("img");
+image.setAttribute("src", product.image);
+
+let title = document.createElement("h2");
+title.innerText = product.title;
+
+let category = document.createElement("h2");
+category.innerText = product.category;
+
+let description = document.createElement("p");
+description.innerText = product.description;
+
+let type = document.createElement("h3");
+type.innerText = product.type;
+
+let price = document.createElement("h4");
+price.innerText = product.price;
+
+
+document.getElementById("container").append(image, category, description, title, type, price)
+
+</script>
