@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart Page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <style>
+      /* Write all necessery css here  */
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-logo">
+        <img
+          src="./images/onlinelogomaker-022123-1530-6453-2000-transparent.png"
+          alt=""
+        />
+      </div>
+
+      <div class="navbar-content">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-twitter"></i>
+        <a href="./as1.html"><i class="fa-regular fa-user"></i></a>
+        <i class="fa-solid fa-bag-shopping"></i>
+      </div>
+    </nav>
+
+    <!-- ********************  HERO IMAGE **************************************** -->
+    <div class="window-image">
+      <img
+        src="https://woollen-wear.in/cdn-cgi/imagedelivery/ZMUrshz-omHo_iJ4haWPew/Banners/Website/woollen-wear-collection-mens-1900x350.jpg/public"
+        alt=""
+      />
+    </div>
+
+    <div id="cart-container">
+      <!-- Here Append All the cart Products  -->
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- append the data here -->
+        </tbody>
+      </table>
+    </div>
+  </body>
+
+  <script>
+    // Write all necessery JS here
+
+    let productData = JSON.parse(localStorage.getItem("cart")) || [];
+    let tbody = document.querySelector("tbody");
+    display(productData);
+    function display(data) {
+      console.log(data);
+      tbody.innerHTML = null;
+      data.forEach((ele) => {
+        let card = document.createElement("div");
+
+        let td1 = document.createElement("td");
+
+        let image = document.createElement("img");
+        image.setAttribute("src", ele.image);
+
+        let brand = document.createElement("h2");
+        brand.innerText = ele.title;
+
+        let Category = document.createElement("p");
+        Category.innerText = ele.category;
+
+        let details = document.createElement("p");
+        details.innerText = ele.description;
+
+        let price = document.createElement("h4");
+        price.innerText = `₹${ele.price}`;
+
+        let increament = document.createElement("button");
+        increament.innerText = "+";
+
+        let decreament = document.createElement("button");
+        decreament.innerText = "-";
+
+        let quantity = document.createElement("span");
+        quantity.innerText = ele.quantity;
+
+        let button = document.createElement("button");
+        button.innerText = "Remove";
+
+        // **************  INCREAMENT and DECREAMENT FUNCTIONALITY   ***********************
+        increament.addEventListener("click", function () {
+          ele = ele.quantity++;
+          localStorage.setItem("cart", JSON.stringify(data));
+          display(data);
+        });
+
+        decreament.addEventListener("click", function () {
+          if (ele.quantity > 1) {
+            ele = ele.quantity--;
+            localStorage.setItem("cart", JSON.stringify(data));
+            display(data);
+          }
+        });
+
+        // *******************   REMOVE BUTTON FUNCTIONALITY ************************************
+
+        button.addEventListener("click", function () {
+          data = data.filter((e) => {
+            return ele.id != e.id;
+          });
+          console.log(data);
+          localStorage.setItem("cart", JSON.stringify(data));
+          display(data);
+        });
+
+        //************************ TOTAL CART VALUE FUNCTIONALITY *******************
+
+        let cartValue = document.getElementById("cart-total");
+
+        let sum = 0;
+        for (let i = 0; i < data.length; i++) {
+          sum += data[i].price * data[i].quantity;
+        }
+        // cartValue.innerText = sum;
+        td1.append(image);
+
+        card.append(
+          image,
+          brand,
+          price,
+          details,
+          Category,
+          increament,
+          quantity,
+          decreament,
+          button
+        );
+        document.querySelector("tbody").append(card);
+      });
+    }
+  </script>
+</html>

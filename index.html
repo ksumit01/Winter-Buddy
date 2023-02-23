@@ -16,6 +16,8 @@
   </head>
   <body>
     <!-- <h1>Winter Buddy</h1> -->
+
+    <!-- ********************** NAV BAR *********************************************** -->
     <nav class="navbar">
       <div class="navbar-logo">
         <img
@@ -29,11 +31,12 @@
         <a href="#">Contact</a>
         <i class="fa-brands fa-facebook"></i>
         <i class="fa-brands fa-twitter"></i>
-        <a href="./Log-in Page/as1.html"><i class="fa-regular fa-user"></i></a>
+        <a href="./as1.html"><i class="fa-regular fa-user"></i></a>
         <i class="fa-solid fa-bag-shopping"></i>
       </div>
     </nav>
 
+    <!-- ********************  HERO IMAGE **************************************** -->
     <div class="window-image">
       <img
         src="https://woollen-wear.in/cdn-cgi/imagedelivery/ZMUrshz-omHo_iJ4haWPew/Banners/Website/woollen-wear-collection-mens-1900x350.jpg/public"
@@ -41,18 +44,41 @@
       />
     </div>
 
-    <div class="main container">
-      <div class="filter">
-        <input type="checkbox" id="nofilter" value="Clear Filter" /> Clear
-        Filter <input type="checkbox" value="bottles" id="bottles" /> Bottle
-        <input type="checkbox" name="" id="jackets" />jackets
-        <input type="checkbox" id="cap" value="cap" /> Cap
-        <input type="checkbox" name="" id="heater" value="Heater" />Heater
-        <input type="checkbox" id="blankets" />
+    <!-- *******************SHOP CATEGORY ************************************* -->
+    <div class="dropdown">
+      <button class="dropbtn">Shop by Category</button>
+      <div class="dropdown-content">
+        <a href="#">Bottles</a>
+        <a href="#">Jackets</a>
+        <a href="#">Caps</a>
+        <a href="#">Blankets</a>
       </div>
     </div>
-    <div id="container">
-      <!-- Append the code here -->
+    <!-- ***********************   SIDE BAR AND ITEM DATA CARD ************************ -->
+    <div class="main_container">
+      <div class="filter">
+        <input type="checkbox" id="nofilter" value="Clear Filter" />
+        <label for="nofilter">Clear Filter</label>
+        <br />
+        <input type="checkbox" value="bottles" id="bottles" />
+        <label for="bottles">Bottle</label>
+        <br />
+        <input type="checkbox" name="" id="jackets" />
+        <label for="jackets">Jackets</label>
+        <br />
+        <input type="checkbox" id="cap" value="cap" />
+        <label for="cap">Cap</label>
+        <br />
+        <input type="checkbox" name="" id="heater" value="Heater" />
+        <label for="heater">Heater</label>
+        <br />
+        <input type="checkbox" id="blankets" />
+        <label for="blankets">Blankets</label>
+      </div>
+
+      <div id="container">
+        <!-- Append the code here -->
+      </div>
     </div>
   </body>
 </html>
@@ -72,6 +98,8 @@
 
   fetchedData();
 
+  let cartData = JSON.parse(localStorage.getItem("cart")) || [];
+
   let divContainer = document.getElementById("container");
   function display(data) {
     divContainer.innerHTML = null;
@@ -80,8 +108,12 @@
 
       let image = document.createElement("img");
       image.setAttribute("src", ele.image);
+      image.addEventListener("click", () => {
+        console.log("hello");
+        displayProductDetails(ele.id);
+      });
 
-      let title = document.createElement("h2");
+      let title = document.createElement("h4");
       title.innerText = ele.title;
 
       let category = document.createElement("h2");
@@ -95,12 +127,46 @@
 
       let price = document.createElement("h4");
       price.innerText = ele.price;
-      card.append(image, category, description, title, type, price);
+
+      let button = document.createElement("button");
+      button.innerText = "Add to cart";
+
+      button.addEventListener("click", function () {
+        if (checkDuplicate(ele)) {
+          alert("Product Already in Cart");
+        } else {
+          cartData.push({ ...ele, quantity: 1 });
+          console.log(ele);
+          localStorage.setItem("cart", JSON.stringify(cartData));
+          alert("Product Added To Cart");
+        }
+      });
+      card.append(image, description, title, type, price, button);
 
       divContainer.append(card);
     });
   }
 
-  let userButton = document.querySelector(".fa-regular");
-  userButton.addEventListener("click", function () {});
+  function displayProductDetails(productId) {
+    // Fetch the product details from the API
+    fetch(`https://63f4a21e55677ef68bc03f97.mockapi.io/products/${productId}`)
+      .then((response) => response.json())
+      .then((product) => {
+        // Redirect to the product details page with the product details as a query parameter
+        window.open(
+          `productDetails.html?product=${JSON.stringify(product)}`,
+          "_blank"
+        );
+      })
+      .catch((error) => console.log(error));
+  }
+
+  function checkDuplicate(product) {
+    for (let i = 0; i < cartData.length; i++) {
+      if (cartData[i].id == product.id) {
+        return true;
+      }
+    }
+    return false;
+  }
 </script>
