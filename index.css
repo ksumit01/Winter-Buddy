@@ -1,3 +1,9 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: #80deea;
+}
+
 .main_container {
   display: flex;
   justify-content: space-evenly;
@@ -12,21 +18,27 @@
 }
 
 #container > div {
+  width: 100%;
   text-align: center;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   padding: 10px;
   box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-#container > div > img {
+.card-content {
   width: 100%;
-  background: red !important;
+  color: #212121;
 }
-body {
-  margin: 0px;
-  padding: 0px;
-  background-color: #e0e0e0;
+.card-content> img{
+  width: 100%;
 }
+
+/* #container > div img {
+  width: 100%;
+  /* background: red !important; */
+} */
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -39,7 +51,7 @@ body {
   width: 100%;
   display: flex;
   width: 40%;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   /* justify-content: start; */
   align-items: center;
 }
@@ -53,14 +65,30 @@ body {
   padding: 10px;
   align-items: center;
   justify-content: space-around;
-  border: 2px solid greenyellow;
+  /* border: 2px solid greenyellow; */
 }
 
 .window-image {
-  width: 100%;
+  position: relative;
+  display: inline-block;
 }
-.window-image > img {
+
+.window-image img {
+  display: block;
   width: 100%;
+  height: auto;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: left;
+  z-index: 1;
 }
 
 /* **********************  SHOP CATEGORY ********************************* */

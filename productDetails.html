@@ -14,6 +14,83 @@
     />
     <title>Document</title>
     <style>
+    #container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px auto;
+  max-width: 1000px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+  
+}
+
+.product-image {
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.add-to-cart-button {
+  display: block;
+  padding: 10px 20px;
+  background-color: #008CBA;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-top: 15px;
+}
+
+.add-to-cart-button:hover {
+  background-color: #005b7f;
+}
+
+.product-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.product-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.product-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #008CBA;
+}
+
+#cartNum{
+  display: inline;
+  position: relative;
+  bottom: 10px;
+  font-size: 10px;
+  color:#fff
+  
+}
 
     </style>
   </head>
@@ -32,8 +109,8 @@
         <a href="#">Contact</a>
         <i class="fa-brands fa-facebook"></i>
         <i class="fa-brands fa-twitter"></i>
-        <a href="./Log-in Page/as1.html"><i class="fa-regular fa-user"></i></a>
-        <i class="fa-solid fa-bag-shopping"></i>
+        <a href="./Log-in Page/as1.html"><i class="fa-regular fa-user " ></i></a>
+        <a href="addtoCart.html"><i class="fa-solid fa-bag-shopping" ><p id="cartNum"></p></i></a>
       </div>
     </nav>
 
@@ -49,33 +126,73 @@
   <body>
 </html>
 <script>
-  // Get the product details from the query parameter in the URL
+// Get the product details from the query parameter in the URL
 const urlParams = new URLSearchParams(window.location.search);
 const product = JSON.parse(urlParams.get('product'));
+console.log(product)
+// getting data from local storage 
+let cartData = JSON.parse(localStorage.getItem("cart")) || [];
+console.log(cartData);
 
 // Display the product details on the page
 
-let card = document.createElement("div")
-  
+let card = document.createElement("div");
+card.setAttribute("id", "container");
+
+let imageContainer = document.createElement("div");
+imageContainer.setAttribute("class", "product-image-container");
+
 let image = document.createElement("img");
 image.setAttribute("src", product.image);
+image.setAttribute("class", "product-image");
+
+let addToCartButton = document.createElement("a");
+addToCartButton.setAttribute("class", "add-to-cart-button");
+addToCartButton.innerText = "Add to Cart";
+
+document.getElementById("cartNum").innerText = cartData.length
+
+addToCartButton.addEventListener("click", function () {
+        if (checkDuplicate(product)) {
+          alert("Product Already in Cart");
+        } else {
+          cartData.push({ ...product, quantity: 1 });
+          console.log(product);
+          localStorage.setItem("cart", JSON.stringify(cartData));
+
+          alert("Product Added To Cart");
+          document.getElementById("cartNum").innerText = cartData.length+1
+        }
+      });
+
+let detailsContainer = document.createElement("div");
+detailsContainer.setAttribute("class", "product-details-container");
 
 let title = document.createElement("h2");
+title.setAttribute("class", "product-title");
 title.innerText = product.title;
 
-let category = document.createElement("h2");
-category.innerText = product.category;
 
 let description = document.createElement("p");
+description.setAttribute("class", "product-description");
 description.innerText = product.description;
 
-let type = document.createElement("h3");
-type.innerText = product.type;
+let price = document.createElement("h3");
+price.setAttribute("class", "product-price");
+price.innerText =`₹${product.price}` ;
 
-let price = document.createElement("h4");
-price.innerText = product.price;
+imageContainer.append(image, addToCartButton);
+detailsContainer.append(title, description, price);
+card.append(imageContainer, detailsContainer);
+document.body.append(card);
 
-
-document.getElementById("container").append(image, category, description, title, type, price)
+function checkDuplicate(product) {
+    for (let i = 0; i < cartData.length; i++) {
+      if (cartData[i].id == product.id) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 </script>
