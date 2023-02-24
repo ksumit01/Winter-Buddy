@@ -38,10 +38,10 @@
 
     <!-- ********************  HERO IMAGE **************************************** -->
     <div class="window-image">
-      <img
-        src="https://woollen-wear.in/cdn-cgi/imagedelivery/ZMUrshz-omHo_iJ4haWPew/Banners/Website/woollen-wear-collection-mens-1900x350.jpg/public"
-        alt=""
-      />
+      <img src="./secImage.png" alt="" />
+      <div class="text-overlay">
+        Discover the magic of winter with Winter Buddy.
+      </div>
     </div>
 
     <!-- *******************SHOP CATEGORY ************************************* -->
@@ -105,6 +105,7 @@
     divContainer.innerHTML = null;
     data.forEach((ele) => {
       let card = document.createElement("div");
+      card.classList.add("card-content");
 
       let image = document.createElement("img");
       image.setAttribute("src", ele.image);
@@ -128,20 +129,20 @@
       let price = document.createElement("h4");
       price.innerText = ele.price;
 
-      let button = document.createElement("button");
-      button.innerText = "Add to cart";
+      // let button = document.createElement("button");
+      // button.innerText = "Add to cart";
 
-      button.addEventListener("click", function () {
-        if (checkDuplicate(ele)) {
-          alert("Product Already in Cart");
-        } else {
-          cartData.push({ ...ele, quantity: 1 });
-          console.log(ele);
-          localStorage.setItem("cart", JSON.stringify(cartData));
-          alert("Product Added To Cart");
-        }
-      });
-      card.append(image, description, title, type, price, button);
+      // button.addEventListener("click", function () {
+      //   if (checkDuplicate(ele)) {
+      //     alert("Product Already in Cart");
+      //   } else {
+      //     cartData.push({ ...ele, quantity: 1 });
+      //     console.log(ele);
+      //     localStorage.setItem("cart", JSON.stringify(cartData));
+      //     alert("Product Added To Cart");
+      //   }
+      // });
+      card.append(image, description, title, type, price);
 
       divContainer.append(card);
     });

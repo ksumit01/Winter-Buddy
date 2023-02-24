@@ -15,15 +15,87 @@
     <link rel="stylesheet" href="index.css" />
     <style>
       /* Write all necessery css here  */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 50px;
+        font-size: 16px;
+        text-align: left;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      thead {
+        background-color: #f2f2f2;
+      }
+
+      thead th {
+        font-weight: 600;
+        padding: 12px;
+      }
+
+      tbody td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      tbody td:first-child {
+        width: 30%;
+      }
+
+      tbody td img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+
+      tbody td h2 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      tbody td p {
+        margin-bottom: 5px;
+      }
+
+      tbody td button {
+        background-color: #f44336;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+
+      tbody td button:hover {
+        background-color: #da190b;
+      }
+
+      #checkout {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+      #checkout:hover {
+        background-color: grey;
+        color: rebeccapurple;
+      }
     </style>
   </head>
   <body>
     <nav class="navbar">
       <div class="navbar-logo">
-        <img
-          src="./images/onlinelogomaker-022123-1530-6453-2000-transparent.png"
-          alt=""
-        />
+        <a href="./index.html">
+          <img
+            src="./images/onlinelogomaker-022123-1530-6453-2000-transparent.png"
+            alt=""
+          />
+        </a>
       </div>
 
       <div class="navbar-content">
@@ -38,14 +110,11 @@
 
     <!-- ********************  HERO IMAGE **************************************** -->
     <div class="window-image">
-      <img
-        src="https://woollen-wear.in/cdn-cgi/imagedelivery/ZMUrshz-omHo_iJ4haWPew/Banners/Website/woollen-wear-collection-mens-1900x350.jpg/public"
-        alt=""
-      />
+      <img src="./secImage.png" alt="" />
     </div>
 
-    <div id="cart-container">
-      <!-- Here Append All the cart Products  -->
+    <!-- <div id="cart-container">
+      
       <table>
         <thead>
           <tr>
@@ -55,8 +124,32 @@
           </tr>
         </thead>
         <tbody>
+          
+        </tbody>
+      </table>
+    </div> -->
+
+    <div id="cart-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items">
           <!-- append the data here -->
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">Total:</td>
+            <td id="cart-total"></td>
+            <a href="./checkoutPage.html">
+              <td><button id="checkout">Proceed To CheckOut</button></td></a
+            >
+          </tr>
+        </tfoot>
       </table>
     </div>
   </body>
@@ -67,59 +160,44 @@
     let productData = JSON.parse(localStorage.getItem("cart")) || [];
     let tbody = document.querySelector("tbody");
     display(productData);
+    // function display(data) {
+
     function display(data) {
       console.log(data);
       tbody.innerHTML = null;
       data.forEach((ele) => {
-        let card = document.createElement("div");
+        let row = document.createElement("tr");
 
-        let td1 = document.createElement("td");
+        let productCell = document.createElement("td");
+        let productImg = document.createElement("img");
+        productImg.setAttribute("src", ele.image);
+        productImg.setAttribute("alt", ele.title);
+        productImg.classList.add("product-image");
+        let productName = document.createElement("p");
+        productName.innerText = ele.title;
+        productName.classList.add("product-name");
+        productCell.append(productImg, productName);
 
-        let image = document.createElement("img");
-        image.setAttribute("src", ele.image);
+        let quantityCell = document.createElement("td");
+        let quantity = document.createElement("input");
+        quantity.setAttribute("type", "number");
+        quantity.setAttribute("min", "1");
+        quantity.setAttribute("value", ele.quantity);
+        quantity.classList.add("product-quantity");
+        quantityCell.append(quantity);
 
-        let brand = document.createElement("h2");
-        brand.innerText = ele.title;
+        let subtotalCell = document.createElement("td");
+        let subtotalValue = ele.quantity * ele.price;
+        let subtotal = document.createElement("h5");
+        subtotal.innerText = `₹${subtotalValue}`;
+        subtotal.classList.add("product-subtotal");
+        subtotalCell.append(subtotal);
 
-        let Category = document.createElement("p");
-        Category.innerText = ele.category;
-
-        let details = document.createElement("p");
-        details.innerText = ele.description;
-
-        let price = document.createElement("h4");
-        price.innerText = `₹${ele.price}`;
-
-        let increament = document.createElement("button");
-        increament.innerText = "+";
-
-        let decreament = document.createElement("button");
-        decreament.innerText = "-";
-
-        let quantity = document.createElement("span");
-        quantity.innerText = ele.quantity;
-
-        let button = document.createElement("button");
-        button.innerText = "Remove";
-
-        // **************  INCREAMENT and DECREAMENT FUNCTIONALITY   ***********************
-        increament.addEventListener("click", function () {
-          ele = ele.quantity++;
-          localStorage.setItem("cart", JSON.stringify(data));
-          display(data);
-        });
-
-        decreament.addEventListener("click", function () {
-          if (ele.quantity > 1) {
-            ele = ele.quantity--;
-            localStorage.setItem("cart", JSON.stringify(data));
-            display(data);
-          }
-        });
-
-        // *******************   REMOVE BUTTON FUNCTIONALITY ************************************
-
-        button.addEventListener("click", function () {
+        let removeCell = document.createElement("td");
+        let removeBtn = document.createElement("button");
+        removeBtn.innerText = "Remove";
+        removeBtn.classList.add("product-remove");
+        removeBtn.addEventListener("click", function () {
           data = data.filter((e) => {
             return ele.id != e.id;
           });
@@ -127,31 +205,19 @@
           localStorage.setItem("cart", JSON.stringify(data));
           display(data);
         });
+        removeCell.append(removeBtn);
 
-        //************************ TOTAL CART VALUE FUNCTIONALITY *******************
-
-        let cartValue = document.getElementById("cart-total");
-
-        let sum = 0;
-        for (let i = 0; i < data.length; i++) {
-          sum += data[i].price * data[i].quantity;
-        }
-        // cartValue.innerText = sum;
-        td1.append(image);
-
-        card.append(
-          image,
-          brand,
-          price,
-          details,
-          Category,
-          increament,
-          quantity,
-          decreament,
-          button
-        );
-        document.querySelector("tbody").append(card);
+        row.append(productCell, quantityCell, subtotalCell, removeCell);
+        tbody.append(row);
       });
+
+      // Update the cart total
+      let cartTotal = document.getElementById("cart-total");
+      let cartValue = 0;
+      for (let i = 0; i < data.length; i++) {
+        cartValue += data[i].quantity * data[i].price;
+      }
+      cartTotal.innerText = `₹${cartValue}`;
     }
   </script>
 </html>
