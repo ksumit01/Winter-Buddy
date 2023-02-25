@@ -145,9 +145,12 @@
           <tr>
             <td colspan="2">Total:</td>
             <td id="cart-total"></td>
-            <a href="./checkoutPage.html">
-              <td><button id="checkout">Proceed To CheckOut</button></td></a
-            >
+
+            <td>
+              <button id="checkout" onclick="redirectToSuccessPage()">
+                Proceed To CheckOut
+              </button>
+            </td>
           </tr>
         </tfoot>
       </table>
@@ -218,6 +221,10 @@
         cartValue += data[i].quantity * data[i].price;
       }
       cartTotal.innerText = `₹${cartValue}`;
+    }
+
+    function redirectToSuccessPage() {
+      window.location.href = "checkoutPage.html";
     }
   </script>
 </html>

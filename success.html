@@ -23,10 +23,19 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
       body {
         font-family: "Varela Round", sans-serif;
-        background-color: lightseagreen;
+        background-image: url("./secImage.png");
+        background-size: cover;
       }
       .modal-confirm {
         color: #636363;
@@ -114,6 +123,24 @@
     </style>
   </head>
   <body>
+    <!-- ********************** NAV BAR *********************************************** -->
+    <nav class="navbar">
+      <div class="navbar-logo">
+        <img
+          src="./images/onlinelogomaker-022123-1530-6453-2000-transparent.png"
+          alt=""
+        />
+      </div>
+
+      <div class="navbar-content">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-twitter"></i>
+        <a href="./as1.html"><i class="fa-regular fa-user"></i></a>
+      </div>
+    </nav>
+
     <div class="text-center">
       <!-- Button HTML (to Trigger Modal) -->
       <a href="#myModal" class="trigger-btn" data-toggle="modal"

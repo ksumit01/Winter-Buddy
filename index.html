@@ -12,6 +12,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
     <title>Document</title>
   </head>
   <body>
@@ -48,49 +49,98 @@
     <div class="dropdown">
       <button class="dropbtn">Shop by Category</button>
       <div class="dropdown-content">
-        <a href="#">Bottles</a>
-        <a href="#">Jackets</a>
-        <a href="#">Caps</a>
-        <a href="#">Blankets</a>
+        <a href="" id="clearFilter">Clear Filter</a>
+        <a href="" id="bottles">bottles</a>
+        <a href="" id="jackets"
+          >Jackets <span class="comingsoon">(launching soon)</span>
+        </a>
+        <a href="" id="caps">Caps</a>
+        <a href="" id="blankets">Blankets</a>
       </div>
     </div>
     <!-- ***********************   SIDE BAR AND ITEM DATA CARD ************************ -->
     <div class="main_container">
       <div class="filter">
-        <input type="checkbox" id="nofilter" value="Clear Filter" />
-        <label for="nofilter">Clear Filter</label>
+        <input type="checkbox" id="checkbox1" name="checkbox1" />
+        <label for="checkbox1">Under 1000</label>
         <br />
-        <input type="checkbox" value="bottles" id="bottles" />
-        <label for="bottles">Bottle</label>
+        <input type="checkbox" id="checkbox2" name="checkbox2" />
+        <label for="checkbox2"> ₹1000 - ₹2000</label>
         <br />
-        <input type="checkbox" name="" id="jackets" />
-        <label for="jackets">Jackets</label>
+        <input type="checkbox" id="checkbox2" name="checkbox2" />
+        <label for="checkbox2">₹2000-₹3000</label>
         <br />
-        <input type="checkbox" id="cap" value="cap" />
-        <label for="cap">Cap</label>
-        <br />
-        <input type="checkbox" name="" id="heater" value="Heater" />
-        <label for="heater">Heater</label>
-        <br />
-        <input type="checkbox" id="blankets" />
-        <label for="blankets">Blankets</label>
+        <input type="checkbox" id="checkbox2" name="checkbox2" />
+        <label for="checkbox2">Over ₹3000</label>
       </div>
 
       <div id="container">
         <!-- Append the code here -->
       </div>
     </div>
+
+    <!-- ********************* FOOTER **************************** -->
+
+    <footer>
+      <div class="footer-navigation">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-social">
+        <h3>Connect with Us</h3>
+        <ul>
+          <li>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h3>Contact Us</h3>
+        <p>
+          123 Main St<br />
+          Noida INDIA 12345
+        </p>
+        <p>
+          (123) 456-7890<br />
+          info@yourwebsite.com
+        </p>
+      </div>
+
+      <div class="footer-legal">
+        <p>&copy; 2023 Your Website. All Rights Reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+      </div>
+    </footer>
   </body>
 </html>
 <script>
-  async function fetchedData() {
+  async function fetchedData(event = "clearFilter") {
     try {
       let res = await fetch(
         `https://63f4a21e55677ef68bc03f97.mockapi.io/products`
       );
       let data = await res.json();
-      console.log(data);
-      display(data);
+      // console.log(data);
+      // display(data);
+      filter(data, event);
+      // display(data);
     } catch (error) {
       console.log(error);
     }
@@ -142,7 +192,7 @@
       //     alert("Product Added To Cart");
       //   }
       // });
-      card.append(image, description, title, type, price);
+      card.append(image, title, description);
 
       divContainer.append(card);
     });
@@ -169,5 +219,35 @@
       }
     }
     return false;
+  }
+
+  let bottles = document.getElementById("bottles");
+  let jackets = document.getElementById("jackets");
+
+  let dropdownContent = document.querySelector(".dropdown-content");
+
+  dropdownContent.addEventListener("click", function (event) {
+    event.preventDefault();
+    let clickedElement = event.target;
+
+    if (clickedElement.tagName === "A") {
+      let id = clickedElement.getAttribute("id");
+      // let href = clickedElement.getAttribute("href");
+      fetchedData(id);
+      // console.log(id);
+    }
+  });
+
+  function filter(data, event) {
+    console.log(data, event);
+    if (event == "clearFilter") {
+      display(data);
+    } else {
+      let filteredData = data.filter((e) => {
+        return e.category == event;
+      });
+      display(filteredData);
+      console.log(filteredData);
+    }
   }
 </script>
