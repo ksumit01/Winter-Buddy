@@ -6,8 +6,9 @@ Winter Buddy is an ecommerce website that sells winter clothing, accessories and
 
 1. User authentication: Users can create accounts and login to the website.
 2. Browse products: Users can browse products by categories or price.
-3. Shopping cart: Users can add products to their shopping cart and view the total cost of their order.
-4. Checkout: Users can complete their order by entering their shipping and payment information.
+3. Item page: Users can look upon the each product on different pages and Add to cart from there.
+4. Shopping cart: Users can add products to their shopping cart and view the total cost of their order.
+5. Checkout: Users can complete their order by entering their shipping and payment information.
 
 ## Installation
 
