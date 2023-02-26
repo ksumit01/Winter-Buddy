@@ -12,7 +12,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-
+    <style></style>
     <title>Document</title>
   </head>
   <body>
@@ -28,11 +28,11 @@
       </div>
 
       <div class="navbar-content">
-        <a href="#">About Us</a>
-        <a href="#">Contact</a>
+        <a>About Us</a>
+        <a>Contact</a>
         <i class="fa-brands fa-facebook"></i>
         <i class="fa-brands fa-twitter"></i>
-        <a href="./as1.html"><i class="fa-regular fa-user"></i></a>
+        <a href="./sign-up.html"><i class="fa-regular fa-user"></i></a>
         <i class="fa-solid fa-bag-shopping"></i>
       </div>
     </nav>
@@ -58,20 +58,22 @@
         <a href="" id="blankets">Blankets</a>
       </div>
     </div>
+
     <!-- ***********************   SIDE BAR AND ITEM DATA CARD ************************ -->
+
     <div class="main_container">
       <div class="filter">
-        <input type="checkbox" id="checkbox1" name="checkbox1" />
+        <input type="checkbox" id="checkbox1" name="price" value="1000" />
         <label for="checkbox1">Under 1000</label>
         <br />
-        <input type="checkbox" id="checkbox2" name="checkbox2" />
-        <label for="checkbox2"> ₹1000 - ₹2000</label>
+        <input type="checkbox" id="checkbox2" name="price" value="2000" />
+        <label for="checkbox2">₹1000 - ₹2000</label>
         <br />
-        <input type="checkbox" id="checkbox2" name="checkbox2" />
-        <label for="checkbox2">₹2000-₹3000</label>
+        <input type="checkbox" id="checkbox3" name="price" value="3000" />
+        <label for="checkbox3">₹2000-₹3000</label>
         <br />
-        <input type="checkbox" id="checkbox2" name="checkbox2" />
-        <label for="checkbox2">Over ₹3000</label>
+        <input type="checkbox" id="checkbox4" name="price" value="999999" />
+        <label for="checkbox4">Over ₹3000</label>
       </div>
 
       <div id="container">
@@ -130,7 +132,9 @@
     </footer>
   </body>
 </html>
+
 <script>
+  // ***********FETCHING THE DATA FROM THE API ****************
   async function fetchedData(event = "clearFilter") {
     try {
       let res = await fetch(
@@ -147,10 +151,13 @@
   }
 
   fetchedData();
-
-  let cartData = JSON.parse(localStorage.getItem("cart")) || [];
+  // //Getting and pushing the data of product in LS after clicking on ADD to cart button
+  //   let cartData = JSON.parse(localStorage.getItem("cart")) || [];
 
   let divContainer = document.getElementById("container");
+
+  // ******************Display Function***********************
+
   function display(data) {
     divContainer.innerHTML = null;
     data.forEach((ele) => {
@@ -192,11 +199,13 @@
       //     alert("Product Added To Cart");
       //   }
       // });
-      card.append(image, title, description);
+      card.append(image, title, description, price);
 
       divContainer.append(card);
     });
   }
+
+  //function for each product to display in details and add to cart from their
 
   function displayProductDetails(productId) {
     // Fetch the product details from the API
@@ -212,6 +221,7 @@
       .catch((error) => console.log(error));
   }
 
+  //Duplicate Function to check if item is already in cart or not
   function checkDuplicate(product) {
     for (let i = 0; i < cartData.length; i++) {
       if (cartData[i].id == product.id) {
@@ -221,9 +231,8 @@
     return false;
   }
 
-  let bottles = document.getElementById("bottles");
-  let jackets = document.getElementById("jackets");
-
+  //Adding Event to the Dropdown Anchor to filter by their id/value
+  //with product.category
   let dropdownContent = document.querySelector(".dropdown-content");
 
   dropdownContent.addEventListener("click", function (event) {
@@ -237,6 +246,7 @@
       // console.log(id);
     }
   });
+  // ***********  Filter Part ************************
 
   function filter(data, event) {
     console.log(data, event);
@@ -246,8 +256,51 @@
       let filteredData = data.filter((e) => {
         return e.category == event;
       });
-      display(filteredData);
-      console.log(filteredData);
+      let sortedData1 = filteredData.sort((a, b) => {
+        return a.price - b.price;
+      });
+
+      // *************Filtering wth their PRICE RANGE Inside FIlter Function****************
+      let checkboxes = document.querySelectorAll('input[name="price"]');
+
+      // Add an event listener to each checkbox
+      checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener("click", function () {
+          // Filter the product data based on the checked checkboxes
+          let filteredData1 = data.filter(function (product) {
+            let price = parseInt(product.price);
+            if (checkbox.id === "checkbox1" && price < 1000) {
+              return true;
+            } else if (
+              checkbox.id === "checkbox2" &&
+              price >= 1000 &&
+              price < 2000
+            ) {
+              return true;
+            } else if (
+              checkbox.id === "checkbox3" &&
+              price >= 2000 &&
+              price < 3000
+            ) {
+              return true;
+            } else if (checkbox.id === "checkbox4" && price >= 3000) {
+              return true;
+            }
+            return false;
+          });
+
+          // Sort the filtered data by price
+          let sortedData = filteredData1.sort(function (a, b) {
+            return parseInt(a.price) - parseInt(b.price);
+          });
+
+          // Display the sorted and filtered data
+          display(sortedData);
+        });
+      });
+
+      // *************Filtering wth their PRICE RANGE Fucntion Ends HERE****************
+      display(sortedData1);
     }
   }
 </script>

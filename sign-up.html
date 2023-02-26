@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
     <title>Document</title>
     <style>
       .main {
@@ -126,6 +127,32 @@
     </style>
   </head>
   <body>
+    <nav class="navbar">
+      <div class="navbar-logo">
+        <img
+          src="./images/onlinelogomaker-022123-1530-6453-2000-transparent.png"
+          alt=""
+        />
+      </div>
+
+      <div class="navbar-content">
+        <a>About Us</a>
+        <a>Contact</a>
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-twitter"></i>
+        <a href="./sign-up.html"><i class="fa-regular fa-user"></i></a>
+        <i class="fa-solid fa-bag-shopping"></i>
+      </div>
+    </nav>
+
+    <!-- ********************  HERO IMAGE **************************************** -->
+    <div class="window-image">
+      <img src="./secImage.png" alt="" />
+      <div class="text-overlay">
+        Discover the magic of winter with Winter Buddy.
+      </div>
+    </div>
+
     <div class="main">
       <div id="firstPart">
         <img src="./Saly-3.svg" alt="" />
@@ -141,9 +168,7 @@
           <input type="password" id="input2" />
 
           <p>Forgot Password</p>
-          <a href="./sign-in.html"><button id="btn">Sign In</button></a>
-          <p>No account? Sign up</p>
-          <p>or continue with</p>
+          <button id="btn">Sign Up</button>
         </div>
       </div>
     </div>
@@ -152,17 +177,31 @@
 
 <script>
   let signup_data = JSON.parse(localStorage.getItem("sign-up")) || [];
-
+  console.log(signup_data);
   let submitButton = document.getElementById("btn");
-  let emailEl = document.getElementById("input1");
-  let password = document.getElementById("input2");
 
-  submitButton.addEventListener("click", function () {
-    let obj = {
-      username: emailEl.value,
-      password: password.value,
-    };
-    signup_data.push(obj);
-    localStorage.setItem("sign-up", JSON.stringify(signup_data));
+  submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    let emailEl = document.getElementById("input1");
+    let password = document.getElementById("input2");
+    if (present(emailEl.value)) {
+      alert("Username already exists!");
+    } else if (password.value.length < 4) {
+      alert("Password should be at least 4 characters long!");
+    } else {
+      let obj = {
+        username: emailEl.value,
+        password: password.value,
+      };
+      signup_data.push(obj);
+      localStorage.setItem("sign-up", JSON.stringify(signup_data));
+      alert("Sign up successful!");
+      window.location.href = "sign-in.html";
+    }
   });
+
+  function present(val) {
+    return signup_data.some((e) => e.username === val);
+  }
+  // present();
 </script>

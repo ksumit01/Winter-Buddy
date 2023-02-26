@@ -85,6 +85,14 @@
         background-color: grey;
         color: rebeccapurple;
       }
+      .quantity-increase {
+        margin-right: 2px;
+        margin-left: 2px;
+      }
+      /* #total {
+        margin-left: 80%;
+        display: inline-block;
+      } */
     </style>
   </head>
   <body>
@@ -143,7 +151,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="2">Total:</td>
+            <td colspan="2" id="total">Total:</td>
             <td id="cart-total"></td>
 
             <td>
@@ -189,6 +197,38 @@
         quantity.classList.add("product-quantity");
         quantityCell.append(quantity);
 
+        let increaseButton = document.createElement("button");
+        increaseButton.innerText = "+";
+        increaseButton.classList.add("quantity-increase");
+        quantityCell.append(increaseButton);
+
+        let decreaseButton = document.createElement("button");
+        decreaseButton.innerText = "-";
+        decreaseButton.classList.add("quantity-decrease");
+        quantityCell.append(decreaseButton);
+
+        quantity.addEventListener("change", function () {
+          ele.quantity = parseInt(quantity.value);
+          localStorage.setItem("cart", JSON.stringify(data));
+          display(data);
+        });
+
+        increaseButton.addEventListener("click", function () {
+          ele.quantity++;
+          quantity.value = ele.quantity;
+          localStorage.setItem("cart", JSON.stringify(data));
+          display(data);
+        });
+
+        decreaseButton.addEventListener("click", function () {
+          if (ele.quantity > 1) {
+            ele.quantity--;
+            quantity.value = ele.quantity;
+            localStorage.setItem("cart", JSON.stringify(data));
+            display(data);
+          }
+        });
+
         let subtotalCell = document.createElement("td");
         let subtotalValue = ele.quantity * ele.price;
         let subtotal = document.createElement("h5");
@@ -224,7 +264,7 @@
     }
 
     function redirectToSuccessPage() {
-      window.location.href = "checkoutPage.html";
+      window.location.href = "sign-up.html";
     }
   </script>
 </html>
