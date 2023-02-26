@@ -87,8 +87,8 @@
   display: inline;
   position: relative;
   bottom: 10px;
-  font-size: 10px;
-  color:#fff
+  font-size: 18px;
+  color:#000000
   
 }
 
@@ -105,8 +105,8 @@
       </div>
 
       <div class="navbar-content">
-        <a href="#">About Us</a>
-        <a href="#">Contact</a>
+        <a>About Us</a>
+        <a>Contact</a>
         <i class="fa-brands fa-facebook"></i>
         <i class="fa-brands fa-twitter"></i>
         <a href="./Log-in Page/as1.html"><i class="fa-regular fa-user " ></i></a>
@@ -161,7 +161,8 @@ addToCartButton.addEventListener("click", function () {
           localStorage.setItem("cart", JSON.stringify(cartData));
 
           alert("Product Added To Cart");
-          document.getElementById("cartNum").innerText = cartData.length+1
+          document.getElementById("cartNum").innerText = cartData.length
+        
         }
       });
 

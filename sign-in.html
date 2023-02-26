@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
     <title>Document</title>
     <style>
       .main {
@@ -130,6 +131,32 @@
     </style>
   </head>
   <body>
+    <nav class="navbar">
+      <div class="navbar-logo">
+        <img
+          src="./images/onlinelogomaker-022123-1530-6453-2000-transparent.png"
+          alt=""
+        />
+      </div>
+
+      <div class="navbar-content">
+        <a>About Us</a>
+        <a>Contact</a>
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-twitter"></i>
+        <a href="./sign-up.html"><i class="fa-regular fa-user"></i></a>
+        <i class="fa-solid fa-bag-shopping"></i>
+      </div>
+    </nav>
+
+    <!-- ********************  HERO IMAGE **************************************** -->
+    <div class="window-image">
+      <img src="./secImage.png" alt="" />
+      <div class="text-overlay">
+        Discover the magic of winter with Winter Buddy.
+      </div>
+    </div>
+
     <div class="main">
       <div id="firstPart">
         <img src="./Saly-3.svg" alt="" />
@@ -145,7 +172,7 @@
           <input type="password" id="input2" />
 
           <button id="btn">Submit</button>
-          <a href="./as1.html"> <p>No account? Sign up</p></a>
+          <a href="./sign-up.html"> <p>No account? Sign up</p></a>
 
           <div id="img1"><img src="./Group 12.png" alt="" /></div>
         </div>
@@ -167,7 +194,8 @@
     signup_data.forEach((ele) => {
       if (ele.username == username.value && ele.password == password.value) {
         window.location.assign("index.html");
-        alert("Welcome to Winter Buddy");
+        alert("Sign -in Successful");
+        window.location.href = "checkoutPage.html";
         isAuthenticated = true;
       }
     });
