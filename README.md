@@ -5,6 +5,12 @@ Winter Buddy is an ecommerce website that sells winter clothing, accessories and
 ## Deployed Link:
 https://admirable-biscuit-9e67e1.netlify.app/
 
+##Tech Stack
+- HTML
+- CSS
+- JavaScript
+- Rest Api
+
 ## Features
 
 1. User authentication: Users can create accounts and login to the website.
